@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "519979588411",
+    "project_id": "notes-flutter-project-c8594",
+    "storage_bucket": "notes-flutter-project-c8594.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519979588411:android:47cc34cbc85d9f6a37f51e",
+        "android_client_info": {
+          "package_name": "com.example.test_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519979588411-8n7n9ejnihr1vlq0jpbd0686fiqmqhoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy2RYkfVOpZ51v0-cmpQyFq-q5fr3GgUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519979588411-8n7n9ejnihr1vlq0jpbd0686fiqmqhoi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "519979588411-u4addn1u4jgijlvhgv8okc9run9sas7o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "me.maleadal.notes"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519979588411:android:033266237bac957337f51e",
+        "android_client_info": {
+          "package_name": "me.maleadal.notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519979588411-8n7n9ejnihr1vlq0jpbd0686fiqmqhoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy2RYkfVOpZ51v0-cmpQyFq-q5fr3GgUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519979588411-8n7n9ejnihr1vlq0jpbd0686fiqmqhoi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "519979588411-u4addn1u4jgijlvhgv8okc9run9sas7o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "me.maleadal.notes"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

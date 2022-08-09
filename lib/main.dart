@@ -1,61 +1,70 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test_project/views/login_view.dart';
+import 'package:test_project/views/register_view.dart';
+import 'package:test_project/views/verify_email_view.dart';
+
+import 'firebase_options.dart';
 
 void main() {
-  runApp(const Main());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MaterialApp(title: "Flutter Demo", home: HomePage()));
 }
 
-class Main extends StatelessWidget {
-  const Main({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // IMPORTANT: COLOR FOR THEME
-    // Color.fromRGBO(163, 111, 62, 64),
-    // Color.fromRGBO(255, 200, 148, 100),
-    // Color.fromRGBO(240, 175, 116, 94),
-    // Color.fromRGBO(46, 139, 163, 64),
-    // Color.fromRGBO(115, 214, 240, 64)
-
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(46, 139, 163, 64),
-          title: const Text('Login'),
           centerTitle: true,
+          title: const Text("Home"),
         ),
-        body: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 20, top: 10),
-              child: TextField(
-                autocorrect: false,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: "Enter your email",
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.all(20),
-                ),
-              ),
-            ),
-            const TextField(
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-              decoration: InputDecoration(
-                  hintText: "Enter your password",
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.all(20)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top:20),
-              child: ElevatedButton(
-                onPressed: () => {},
-                child: const Text("Register"),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+        body: FutureBuilder(
+          future: Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform,
+          ),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                final user = FirebaseAuth.instance.currentUser;
+                if (user == null) {
+                  return Column(
+                    children: [
+                      const Text("Please Register or Login before accessing this page\n\n"),
+                      TextButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.red)
+                        ),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => const RegisterView()));
+                        },
+                        child: const Text("Register"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => const LoginView()));
+                        },
+                        child: const Text("Login"),
+                      ),
+                    ],
+                  );
+                }
+                // final isVerified = user?.emailVerified ?? false;
+                // if (isVerified) {
+                //   print("You are a verified user");
+                // } else {
+                //   return const VerifyEmailView();
+                // }
+                return const Text('Done');
+              default:
+                return const Text("Loading");
+            }
+          },
+        ));
   }
 }
