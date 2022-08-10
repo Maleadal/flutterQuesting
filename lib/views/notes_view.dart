@@ -16,9 +16,11 @@ Future<bool> showLogOutDialog(BuildContext context) {
                   Navigator.of(context).pop(false);
                 },
                 child: const Text("Cancel")),
-            TextButton(onPressed: () {
-              Navigator.of(context).pop(true);
-            }, child: const Text("Log out"))
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text("Log out"))
           ],
         );
       }).then((value) => value ?? false);
@@ -41,12 +43,13 @@ class _NotesViewState extends State<NotesView> {
         actions: [
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
-              switch(value){
+              switch (value) {
                 case MenuAction.logout:
                   final shouldLog = await showLogOutDialog(context);
-                  if(shouldLog){
+                  if (shouldLog) {
                     await FirebaseAuth.instance.signOut();
-                    Navigator.of(context).pushNamedAndRemoveUntil('/login/', (_) => false);
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/login/', (_) => false);
                   }
                   break;
               }
@@ -60,8 +63,24 @@ class _NotesViewState extends State<NotesView> {
           ),
         ],
       ),
-      body: Column(
-        children: [],
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Column(
+          children: [
+            const Text("List of all the Widgets I learned", style: TextStyle(fontSize: 20)),
+            ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children: [ListTile(
+                leading: Icon(Icons.smart_button),
+                title: Text("Buttons"),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/buttons/');
+                },
+              )],
+            )
+          ],
+        ),
       ),
     );
   }

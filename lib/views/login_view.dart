@@ -1,7 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../firebase_options.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -60,17 +58,15 @@ class _LoginViewState extends State<LoginView> {
                   final userCredentials = await FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: email, password: password);
-                  Navigator.pushNamedAndRemoveUntil(context, '/notes/', (route) => false);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/notes/', (route) => false);
                 } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found') {
-                    print("User not found");
-                  } else if (e.code == 'wrong-password') {
-                    print("Wrong password");
-                  } else {
-                    print("Something else happened: ${e.code}");
-                  }
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          errorPopup(context, e.code));
                 } catch (e) {
-                  print("An Error has Occured: ${e.runtimeType}");
+                  print("An Error has Occurred: ${e.runtimeType}");
                 }
               },
               child: const Text("Login")),
@@ -84,4 +80,21 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
+}
+
+Widget errorPopup(BuildContext context, String e) {
+  return AlertDialog(
+    title: const Text("Error", style: TextStyle(color: Colors.red)),
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text("An Error has Occured: ${e}"),
+        TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: const Text("Try again"))
+      ],
+    ),
+  );
 }
